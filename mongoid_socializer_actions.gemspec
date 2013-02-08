@@ -11,8 +11,8 @@ Gem::Specification.new do |s|
   s.authors     = ['Sreehari B']
   s.email       = ['sreehari@activesphere.com']
   s.homepage    = 'https://github.com/stigi/mongoid_likes'
-  s.summary     = %q{Mongoid 3.0 add likable to objects with likers}
-  s.description = %q{Add liking ability to Mongoid documents. Qweries are performance optimized}
+  s.summary     = %q{Ability to comment, like, share, tag mongoid documents}
+  s.description = %q{Add liking, commentable, sharabel, tagabel ability to Mongoid documents.}
 
   s.add_dependency 'mongoid', '~> 3.0'
   s.add_dependency 'activesupport', '~> 3.2'
