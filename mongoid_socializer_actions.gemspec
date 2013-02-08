@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Sreehari B']
   s.email       = ['sreehari@activesphere.com']
-  s.homepage    = 'https://github.com/stigi/mongoid_likes'
+  s.homepage    = 'https://github.com/sreehari/mongoid_socializer_actions'
   s.summary     = %q{Ability to comment, like, share, tag mongoid documents}
   s.description = %q{Add liking, commentable, sharabel, tagabel ability to Mongoid documents.}
 
