@@ -48,30 +48,21 @@ You can now like objects like this:
 
 You can query for likes like that:
 
-    photo.all_likers
+    photo.likers
     # => [user]
 
     photo.likers_count
     # => 1
 
-    user.all_likes
+    user.liked_objects
     # => [photo]
 
 Also likes are polymorphic, so let's assume you have a second class `Album` that is including `Mongoid::Likeable` you can do something like this:
 
     album = Album.create
     user.like(album)
-    user.all_likes
+    user.liked_objects
     # => [photo, album]
-
-    user.all_likes_by_model(Album)
-    # => [album]
-
-    user.photo_likes_count
-    # => 1
-
-    user.all_photo_likes
-    # => [photo]
 
 You get the idea. Have a look at the specs to see some more examples.
 
