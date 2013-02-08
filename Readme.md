@@ -1,13 +1,21 @@
 # mongoid_socializer_actions
 
-mongoid_socializer_actions allows you to easily add liking ability to you Mongoid documents.
+mongoid_socializer_actions gives ability to like, comment  mongoid documents
 
 
 ## Installation
 
-Add the following to your Gemfile
+Add this line to your application's Gemfile:
 
     gem 'mongoid_socializer_actions'
+
+And then execute:
+
+    bundle
+
+Or install it yourself as:
+
+    gem install mongoid_socializer_actions
 
 
 ## Requirements
@@ -25,7 +33,7 @@ Mongoid Likes provides two modules that you can mix in your model objects like t
       include Mongoid::Liker
     end
 
-    class Track
+    class Photo
       include Mongoid::Document
 
       include Mongoid::Likeable
@@ -34,36 +42,36 @@ Mongoid Likes provides two modules that you can mix in your model objects like t
 You can now like objects like this:
 
     user = User.create
-    track = Track.create
+    photo = Photo.create
 
-    user.like(track)
+    user.like(photo)
 
 You can query for likes like that:
 
-    track.all_likers
+    photo.all_likers
     # => [user]
 
-    track.likers_count
+    photo.likers_count
     # => 1
 
     user.all_likes
-    # => [track]
+    # => [photo]
 
 Also likes are polymorphic, so let's assume you have a second class `Album` that is including `Mongoid::Likeable` you can do something like this:
 
     album = Album.create
     user.like(album)
     user.all_likes
-    # => [track, album]
+    # => [photo, album]
 
     user.all_likes_by_model(Album)
     # => [album]
 
-    user.track_likes_count
+    user.photo_likes_count
     # => 1
 
-    user.all_track_likes
-    # => [track]
+    user.all_photo_likes
+    # => [photo]
 
 You get the idea. Have a look at the specs to see some more examples.
 
@@ -71,3 +79,4 @@ You get the idea. Have a look at the specs to see some more examples.
 
 - Implement commentable
 - Implement sharable
+- Implement taggable
