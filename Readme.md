@@ -64,6 +64,12 @@ Also likes are polymorphic, so let's assume you have a second class `Album` that
     user.liked_objects
     # => [photo, album]
 
+    user.liked_ablums
+    # => [album]
+
+    user.album_likes_count
+    # => 1
+
 You get the idea. Have a look at the specs to see some more examples.
 
 # TODOs

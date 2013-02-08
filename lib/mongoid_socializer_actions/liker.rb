@@ -58,35 +58,25 @@ module Mongoid
     # know if self is already liking model
     #
     # Example:
-    # => @john.likes?(@photos)
+    # => @john.liked?(@photos)
     # => true
     def liked?(model)
       self.likes.where(likable_id: model.id, likable_type: model.class.to_s).exists?
     end
 
-    # get likes count
-    # Note: this is a cache counter
-    #
-    # Example:
-    # => @john.likes_count
-    # => 1
-    # def likes_count
-    #   self.likes_count_field
-    # end
-
     # get likes count by model
     #
     # Example:
-    # => @john.likes_coun_by_model(User)
+    # => @john.likes_count_by_model("Photo")
     # => 1
     def likes_count_by_model(model)
-      self.likes_assoc.where(:like_type => model.to_s).count
+      self.likes.where(:likable_type => model).count
     end
 
     # view all selfs likes
     #
     # Example:
-    # => @john.all_likes
+    # => @john.liked_objects
     # => [@photo]
     def liked_objects
       get_liked_objects_of_kind
@@ -95,12 +85,12 @@ module Mongoid
     # view all selfs likes by model
     #
     # Example:
-    # => @john.all_likes_by_model
+    # => @john.get_liked_objects_of_kind('Photo')
     # => [@photo]
     def get_liked_objects_of_kind(model = nil)
       if model
-        user_likes = likes.where(likable_type: model.class.to_s)
-        extract_likes_from(user_likes, model.class.to_s)
+        user_likes = likes.where(likable_type: model)
+        extract_likes_from(user_likes, model)
       else
         likable_types = likes.map(&:likable_type).uniq
         likable_types.collect do |likable_type|
@@ -116,26 +106,13 @@ module Mongoid
       likable_type.constantize.find(likable_ids)
     end
 
-    # view all common likes of self against model
-    #
-    # Example:
-    # => @john.common_likes_with(@jashua)
-    # => [@photo1, @photo2]
-    def common_likes_with(model)
-      model_likes = get_likes_of(model)
-      self_likes = get_likes_of(self)
-
-      self_likes & model_likes
-    end
-
     private
-
 
     def method_missing(missing_method, *args, &block)
       if missing_method.to_s =~ /^(.+)_likes_count$/
         likes_count_by_model($1.camelize)
-      elsif missing_method.to_s =~ /^all_(.+)_likes$/
-        all_likes_by_model($1.camelize)
+      elsif missing_method.to_s =~ /^liked_(.+)$/
+        get_liked_objects_of_kind($1.singularize.camelize)
       else
         super
       end

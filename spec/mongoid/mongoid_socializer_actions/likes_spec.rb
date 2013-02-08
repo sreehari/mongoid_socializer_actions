@@ -87,5 +87,26 @@ describe Mongoid::Liker do
         @jashua.liked_objects.should_not include @photo1
       end
     end
+
+    describe "get likes by model" do
+      before :each do
+        @photo1 = Photo.create
+        @photo2 = Photo.create
+        @album1 = Album.create
+        @album2 = Album.create
+        @john.like(@photo1)
+        @john.like(@photo2)
+        @john.like(@album1)
+      end
+
+      it "should return photo likes count" do
+        @john.photo_likes_count.should == 2
+        @john.album_likes_count.should == 1
+      end
+
+      it "should return liked photos " do
+        @john.liked_photos.should == [@photo1, @photo2]
+      end
+    end
   end
 end
