@@ -125,8 +125,42 @@ You can query for comments like that:
     photo.commenters
     # => [user]
 
+## SHARES
+Add the Sharer module in User model and Sharable in Photo, Album etc.
+
+    class User
+      include Mongoid::Document
+
+      include Mongoid::Sharer
+    end
+
+    class Photo
+      include Mongoid::Document
+
+      include Mongoid::Sharable
+    end
+
+You can now comment objects like this:
+
+    user = User.create
+    photo = Photo.create
+
+    user.share(photo)
+
+You can query for comments like that:
+
+    photo.sharers
+    # => [user]
+
+    user.unshare(photo)
+    # => true
+
+    user.photo_shares_count
+    # => 1
+
+    photo.shares_count
+    # => 1
 
 # TODOs
 
-- Implement sharable
 - Implement taggable
