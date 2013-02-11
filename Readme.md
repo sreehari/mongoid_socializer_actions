@@ -25,7 +25,8 @@ This gem has been tested with [MongoID](http://mongoid.org/) version 3.0.21
 
 ## Usage
 
-Mongoid Likes provides two modules that you can mix in your model objects like that:
+##LIKES
+Add the liker module in User model and likable in Photo, Album etc.
 
     class User
       include Mongoid::Document
@@ -39,12 +40,14 @@ Mongoid Likes provides two modules that you can mix in your model objects like t
       include Mongoid::Likeable
     end
 
-You can now like objects like this:
+You can now like, unlike objects like this:
 
     user = User.create
     photo = Photo.create
 
     user.like(photo)
+
+    user.unlike(photo)
 
 You can query for likes like that:
 
@@ -70,10 +73,60 @@ Also likes are polymorphic, so let's assume you have a second class `Album` that
     user.album_likes_count
     # => 1
 
-You get the idea. Have a look at the specs to see some more examples.
+## COMMENTS
+Add the Commenter module in User model and Commentable in Photo, Album etc.
+
+    class User
+      include Mongoid::Document
+
+      include Mongoid::Commenter
+    end
+
+    class Photo
+      include Mongoid::Document
+
+      include Mongoid::Commentable
+    end
+
+You can now comment objects like this:
+
+    user = User.create
+    photo = Photo.create
+
+    user.comment_on(photo, "Beautiful")
+
+Load the commets with eager loaded user(Enable [Identity map](http://mongoid.org/en/mongoid/docs/identity_map.html))
+
+    photo.comments_with_eager_loaded_commenter
+
+You can query for comments like that:
+
+    photo.comments
+    # => [comment]
+
+    photo.commenters
+    # => [user]
+
+    user.delete_comment(comment_id)
+    # => true
+
+    user.edit_comment(comment_id, "Not Beautiful")
+    # => true
+
+    user.comments_of(photo)
+    # => [comment]
+
+    user.photo_comments_count
+    # => 1
+
+    photo.comments_count
+    # => 1
+
+    photo.commenters
+    # => [user]
+
 
 # TODOs
 
-- Implement commentable
 - Implement sharable
 - Implement taggable
