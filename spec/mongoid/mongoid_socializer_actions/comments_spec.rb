@@ -53,7 +53,7 @@ describe Mongoid::Commenter do
         @john.comments_count.should be 1
       end
 
-      it "should be unlikable" do
+      it "should be uncommentable" do
         comment = @jashua.comment_on(@photo1, 'Beautiful')
         expect{ @jashua.delete_comment(comment) }.to change { Mongoid::Comment.count }.by(-1)
       end
@@ -68,11 +68,15 @@ describe Mongoid::Commenter do
       before :each do
         @photo1 = Photo.create
         @c1 = @john.comment_on(@photo1, "Beautiful")
-        @c2 = @john.comment_on(@photo1, "Excellemt")
+        @c2 = @jashua.comment_on(@photo1, "Excellemt")
       end
 
       it "should return photo comments" do
         @john.comments_of(@photo1).should include @c1, @c2
+      end
+
+      it "return comments with eager loaded commenters" do
+        @photo1.comments_with_eager_loaded_commenter.should include @c1, @c2
       end
     end
   end
