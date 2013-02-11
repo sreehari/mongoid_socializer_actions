@@ -27,7 +27,15 @@ describe Mongoid::Liker do
 
       it "should be liked by liker" do
         @john.like(@photo1)
-        @photo1.liked_by?(@john).should be_true
+        @photo1.reload.liked_by?(@john).should be_true
+        @john.liked?(@photo1).should be_true
+      end
+
+      it "should be unliked by liker" do
+        @john.like(@photo1)
+        @john.unlike(@photo1)
+        @photo1.reload.liked_by?(@john).should be_false
+        @john.liked?(@photo1).should be_false
       end
 
       it "should not be liked by others" do

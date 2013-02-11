@@ -15,11 +15,10 @@ module Mongoid
       unless self.liked?(model)
         model.before_liked_by(self) if model.respond_to?('before_liked_by')
         likes << model.likes.create!
+        model.likers << self
         model.inc(:likers_count, 1)
         model.after_liked_by(self) if model.respond_to?('after_liked_by')
-
         self.before_like(model) if self.respond_to?('before_like')
-        # self.likes_assoc.create!(:like_type => model.class.name, :like_id => model.id)
         self.inc(:likes_count, 1)
         self.after_like(model) if self.respond_to?('after_like')
         return true
@@ -40,12 +39,14 @@ module Mongoid
         self.reload
 
         model.before_unliked_by(self) if model.respond_to?('before_unliked_by')
+
         likes.where(:likable_type => model.class.name, :likable_id => model.id).destroy
+        model.likers.delete(self)
+
         model.inc(:likers_count, -1)
         model.after_unliked_by(self) if model.respond_to?('after_unliked_by')
-
         self.before_unlike(model) if self.respond_to?('before_unlike')
-        # self.likes_assoc.where(:like_type => model.class.name, :like_id => model.id).destroy
+
         self.inc(:likes_count, -1)
         self.after_unlike(model) if self.respond_to?('after_unlike')
 
@@ -55,13 +56,13 @@ module Mongoid
       end
     end
 
-    # know if self is already liking model
+    # know if user is already liking model
     #
     # Example:
     # => @john.liked?(@photos)
     # => true
     def liked?(model)
-      self.likes.where(likable_id: model.id, likable_type: model.class.to_s).exists?
+      model.liker_ids.include?(self.id)
     end
 
     # get likes count by model
