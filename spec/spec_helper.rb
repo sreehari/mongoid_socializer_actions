@@ -11,7 +11,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'app'))
 
-Mongoid.load! '/Users/sreehari/MyProjects/mongoid_likes/spec/config/mongoid.yml', :test
+Mongoid.load! '/Users/sreehari/MyProjects/mongoid_socializer_actions/spec/config/mongoid.yml', :test
 
 require 'mongoid_socializer_actions'
 require 'rspec'
