@@ -17,5 +17,9 @@ module Mongoid
     def liked_by?(liker)
       liker_ids.include?(liker.id)
     end
+
+    def likes_with_likers_eager_loaded
+      likes.includes(:liker)
+    end
   end
 end
