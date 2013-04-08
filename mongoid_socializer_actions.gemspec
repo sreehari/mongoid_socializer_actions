@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.email       = ['sreehari@activesphere.com']
   s.homepage    = 'https://github.com/sreehari/mongoid_socializer_actions'
   s.summary     = %q{Ability to comment, like, share, tag mongoid documents}
-  s.description = %q{Add liking, commentable, sharabel, tagabel ability to Mongoid documents.}
+  s.description = %q{Like, comment, share mongoid documents.}
 
   s.add_dependency 'mongoid', '~> 3.0'
   s.add_dependency 'activesupport', '~> 3.2'
