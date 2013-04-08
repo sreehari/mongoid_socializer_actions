@@ -4,6 +4,7 @@ module Mongoid
     include Mongoid::Timestamps
 
     field :body, type: String
+    validates :body, presence: true
 
     belongs_to :commenter, :class_name => 'User', :inverse_of => :comments
     belongs_to :commentable, :polymorphic => true
