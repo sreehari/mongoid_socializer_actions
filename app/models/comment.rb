@@ -6,7 +6,7 @@ module Mongoid
     field :body, type: String
     validates :body, presence: true
 
-    belongs_to :commenter, :class_name => 'User', :inverse_of => :comments
+    belongs_to :commenter, :class_name => Socializer.user_class_name, :inverse_of => :comments
     belongs_to :commentable, :polymorphic => true
 
     def commentabled_obj

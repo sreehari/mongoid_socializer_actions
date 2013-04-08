@@ -46,8 +46,8 @@ describe Mongoid::Commenter do
       end
 
       it "should have the correct comments count" do
-        @jashua.comment_on(@photo1, '')
-        @john.comment_on(@photo1, '')
+        @jashua.comment_on(@photo1, 'test1')
+        @john.comment_on(@photo1, 'test2')
         @photo1.comments_count.should be 2
         @jashua.comments_count.should be 1
         @john.comments_count.should be 1
