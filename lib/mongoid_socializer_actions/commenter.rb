@@ -10,10 +10,10 @@ module Mongoid
     # Comment on a model
     #
     # Example:
-    # => @john.comment_on(@photo, { with: "Beautiful" } )
+    # => @john.comment_on(@photo, "Beautiful")
     def comment_on(model, comment_body)
         model.before_commented_by(self) if model.respond_to?('before_commented_by')
-        comment = model.comments.create!(body: comment_body)
+        comment = model.comments.create(body: comment_body)
         comments << comment
         model.inc(:comments_count, 1)
         self.inc(:comments_count, 1)

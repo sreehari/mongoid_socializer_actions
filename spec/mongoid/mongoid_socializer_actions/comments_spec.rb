@@ -21,6 +21,13 @@ describe Mongoid::Commenter do
         expect{ @john.comment_on(@photo1, "Beautiful") }.to change(Mongoid::Comment, :count).by(1)
       end
 
+      it "comment body should not be empty" do
+        comment = @john.comment_on(@photo1, '')
+        comment.errors.present?.should be_true
+        comment.errors[:body].should == ["can't be blank"]
+        comment.persisted?.should be_false
+      end
+
       it "should be commented by commenter" do
         @john.comment_on(@photo1, 'Beautiful')
         @photo1.commenters.should include @john
