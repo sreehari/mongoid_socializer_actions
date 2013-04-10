@@ -14,7 +14,7 @@ module Mongoid
     def like(model)
       unless self.liked?(model)
         model.before_liked_by(self) if model.respond_to?('before_liked_by')
-        likes << model.likes.create!
+        model.likes.create!(liker: self)
         model.likers << self
         model.inc(:likers_count, 1)
         model.after_liked_by(self) if model.respond_to?('after_liked_by')
