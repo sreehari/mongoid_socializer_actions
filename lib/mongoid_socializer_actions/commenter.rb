@@ -13,8 +13,7 @@ module Mongoid
     # => @john.comment_on(@photo, "Beautiful")
     def comment_on(model, comment_body)
         model.before_commented_by(self) if model.respond_to?('before_commented_by')
-        comment = model.comments.create(body: comment_body)
-        comments << comment
+        comment = self.comments.create(body: comment_body, commentable: model)
         model.inc(:comments_count, 1)
         self.inc(:comments_count, 1)
         model.after_commented_by(self) if model.respond_to?('after_commented_by')
