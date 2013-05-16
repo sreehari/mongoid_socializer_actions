@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.description = %q{Like, comment, share mongoid documents.}
 
   s.add_dependency 'mongoid', '~> 3.0'
-  s.add_dependency 'activesupport', '~> 3.2'
+  s.add_dependency 'activesupport', '>= 3.2'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
