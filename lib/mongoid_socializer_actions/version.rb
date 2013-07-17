@@ -1,5 +1,5 @@
 module Mongoid
   module MongoidSocializerActions
-    VERSION = "1.2.4"
+    VERSION = "1.2.8"
   end
 end
