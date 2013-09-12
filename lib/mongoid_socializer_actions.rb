@@ -16,3 +16,6 @@ require 'mongoid_socializer_actions/sharable'
 require 'mongoid_socializer_actions/sharer'
 require 'models/share'
 
+require 'mongoid_socializer_actions/followable'
+require 'mongoid_socializer_actions/follower'
+require 'models/follow'
