@@ -110,7 +110,6 @@ module Mongoid
     private
 
     def method_missing(missing_method, *args, &block)
-      binding.pry
       if missing_method.to_s =~ /^(.+)_follows_count$/
         follows_count_by_model($1.camelize)
       elsif missing_method.to_s =~ /^followed_(.+)$/

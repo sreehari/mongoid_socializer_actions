@@ -10,8 +10,9 @@ models_folder = File.join(File.dirname(__FILE__), 'mongoid/models')
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'app'))
+require 'pry-rails'
 
-Mongoid.load! '/Users/sreehari/MyProjects/mongoid_socializer_actions/spec/config/mongoid.yml', :test
+Mongoid.load! File.expand_path('../config/mongoid.yml', __FILE__), :test
 
 require 'mongoid_socializer_actions'
 require 'rspec'
