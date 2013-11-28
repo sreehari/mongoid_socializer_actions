@@ -34,7 +34,6 @@ module Mongoid
     def unfollow(model)
       if self.id != model.id && self.followed?(model)
 
-        # this is necessary to handle mongodb caching on collection if unlike is following a like
         model.reload
         self.reload
 
@@ -65,7 +64,7 @@ module Mongoid
       model.follower_ids.include?(self.id)
     end
 
-    # get likes count by model
+    # get follows count by model
     #
     # Example:
     # => @john.follows_count_by_model("Photo")
@@ -74,24 +73,24 @@ module Mongoid
       self.follows.where(:followable_type => model).count
     end
 
-    # view all selfs likes
+    # view all selfs follows
     #
     # Example:
-    # => @john.liked_objects
+    # => @john.follows_objects
     # => [@photo]
     def followed_objects
       get_followed_objects_of_kind
     end
 
-    # view all selfs likes by model
+    # view all selfs follows by model
     #
     # Example:
-    # => @john.get_liked_objects_of_kind('Photo')
+    # => @john.get_followed_objects_of_kind('Photo')
     # => [@photo]
     def get_followed_objects_of_kind(model = nil)
       if model
-        user_likes = likes.where(likable_type: model)
-        extract_likes_from(user_likes, model)
+        user_follows = follows.where(followable_type: model)
+        extract_follows_from(user_follows, model)
       else
         followable_types = follows.map(&:followable_type).uniq
         followable_types.collect do |followable_type|
@@ -101,7 +100,7 @@ module Mongoid
       end
     end
 
-    def extract_follows_from(user_follows, likable_type)
+    def extract_follows_from(user_follows, followable_type)
       return [] unless user_follows.present?
       followable_ids = user_follows.map(&:followable_id)
       followable_type.constantize.find(followable_ids)
