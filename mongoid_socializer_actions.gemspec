@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = Mongoid::MongoidSocializerActions::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Sreehari B']
-  s.email       = ['sreehari@activesphere.com']
+  s.email       = ['sreehari0514@gmail.com']
   s.homepage    = 'https://github.com/sreehari/mongoid_socializer_actions'
   s.summary     = %q{Ability to comment, like, share, tag mongoid documents}
   s.description = %q{Like, comment, share mongoid documents.}
