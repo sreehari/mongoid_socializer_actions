@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 # -*- encoding: utf-8 -*-
-$:.push File.expand_path('../lib', __FILE__)
+$:.unshift File.expand_path('../lib', __FILE__)
 require 'mongoid_socializer_actions/version'
 
 Gem::Specification.new do |s|
