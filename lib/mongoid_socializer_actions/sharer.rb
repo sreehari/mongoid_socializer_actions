@@ -12,7 +12,7 @@ module Mongoid
     # => @john.share(@photo)
     def share(model)
       model.before_shared_by(self) if model.respond_to?('before_shared_by')
-      shares << model.shares.create!
+      shares << model.shares.create!(sharer: self)
       model.inc(:shares_count, 1)
       model.after_shared_by(self) if model.respond_to?('after_shared_by')
       self.before_share(model) if self.respond_to?('before_share')
