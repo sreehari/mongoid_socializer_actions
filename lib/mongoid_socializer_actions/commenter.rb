@@ -12,14 +12,14 @@ module Mongoid
     # Example:
     # => @john.comment_on(@photo, "Beautiful")
     def comment_on(model, comment_body)
-        model.before_commented_by(self) if model.respond_to?('before_commented_by')
-        comment = self.comments.create(body: comment_body, commentable: model)
-        model.inc(:comments_count, 1)
-        self.inc(:comments_count, 1)
-        model.after_commented_by(self) if model.respond_to?('after_commented_by')
-        self.before_comment(model) if self.respond_to?('before_comment')
-        self.after_comment(model) if self.respond_to?('after_comment')
-        comment
+      model.before_commented_by(self) if model.respond_to?('before_commented_by')
+      comment = self.comments.create(body: comment_body, commentable: model)
+      model.inc(:comments_count, 1)
+      self.inc(:comments_count, 1)
+      model.after_commented_by(self) if model.respond_to?('after_commented_by')
+      self.before_comment(model) if self.respond_to?('before_comment')
+      self.after_comment(model) if self.respond_to?('after_comment')
+      comment
     end
 
     # Delete comment a model
