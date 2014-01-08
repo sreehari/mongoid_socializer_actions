@@ -7,4 +7,3 @@ services:
   - mongodb
 before_script:
   - sudo service mongodb start
-  - mongo mongoid_socializer_actions_test
