@@ -7,9 +7,9 @@ require 'database_cleaner'
 
 models_folder = File.join(File.dirname(__FILE__), 'mongoid/models')
 
-$LOAD_PATH.unshift(File.dirname(__FILE__))
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'app'))
+$:.unshift(File.dirname(__FILE__))
+$:.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+$:.unshift(File.join(File.dirname(__FILE__), '..', 'app'))
 require 'pry-rails'
 
 Mongoid.load! File.expand_path('../config/mongoid.yml', __FILE__), :test
