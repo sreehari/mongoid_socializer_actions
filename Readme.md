@@ -1,4 +1,4 @@
-# mongoid_socializer_actions
+# mongoid_socializer_actions [![Build Status](https://travis-ci.org/sreehari/mongoid_socializer_actions.png?branch=master)](https://travis-ci.org/sreehari/mongoid_socializer_actions)
 
 mongoid_socializer_actions gives ability to like, comment, share  mongoid documents
 
